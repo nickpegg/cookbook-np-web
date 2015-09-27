@@ -7,14 +7,20 @@
 require 'spec_helper'
 
 describe 'np-web::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
+  before :all do
+    common_stubs
+    @chef_run = memoized_runner(described_recipe)
+  end
 
-    it 'converges successfully' do
-      chef_run # This should not raise an error
-    end
+  subject { @chef_run }
+
+  it { is_expected.to include_recipe 'np-web::nginx' }
+
+  it 'should create the base directory' do
+    is_expected.to create_directory('/srv/web').with(
+      owner: 'root',
+      group: 'www-data',
+      mode: '0775'
+    )
   end
 end
