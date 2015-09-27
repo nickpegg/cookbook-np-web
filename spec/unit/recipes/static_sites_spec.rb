@@ -17,5 +17,6 @@ describe 'np-web::static_sites' do
 
   subject { @chef_run }
 
+  it { is_expected.to include_recipe 'nginx' }
   it { is_expected.to create_np_web_site 'example.com' }
 end

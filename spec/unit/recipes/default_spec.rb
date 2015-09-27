@@ -14,7 +14,7 @@ describe 'np-web::default' do
 
   subject { @chef_run }
 
-  it { is_expected.to include_recipe 'np-web::nginx' }
+  it { is_expected.to include_recipe 'nginx' }
 
   it 'should create the base directory' do
     is_expected.to create_directory('/srv/web').with(
