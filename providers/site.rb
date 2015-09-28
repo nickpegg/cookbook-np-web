@@ -7,6 +7,7 @@ action :create do
     owner node[:np_web][:user]
     group node[:np_web][:group]
     mode '0755'
+    recursive true
   end
 
   directory ::File.join(site_dir, 'root') do

@@ -20,3 +20,4 @@ suites:
       np_web:
         static_sites:
           - example.com
+          - example.org
