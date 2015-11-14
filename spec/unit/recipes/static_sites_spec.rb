@@ -7,7 +7,7 @@
 require 'spec_helper'
 
 describe 'np-web::static_sites' do
-  before :all do
+  before do
     common_stubs
 
     @chef_run = memoized_runner(described_recipe)
