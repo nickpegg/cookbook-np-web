@@ -18,3 +18,5 @@ SECRET_KEY = <%= PoisePython::Utils.to_python(@secret_key) %>
 <%= var.to_s %> = <%= PoisePython::Utils.to_python(value) %>
   <%- end -%>
 <% end %>
+
+from celeryconfig import *

@@ -21,10 +21,9 @@ describe 'np-web::home' do
     it { is_expected.to be_running }
   end
 
-  describe process 'python' do
+  describe service 'home-worker' do
+    it { is_expected.to be_enabled }
     it { is_expected.to be_running }
-    its(:args) { is_expected.to contain 'unicorn' }
-    its(:user) { is_expected.to eq 'home' }
   end
 
   describe port 8001 do
