@@ -19,6 +19,7 @@ describe 'np-web::static_sites' do
     describe file ::File.join('/etc/nginx/sites-enabled', site) do
       it { is_expected.to exist }
       it { is_expected.to be_file }
+      it { is_expected.to contain 'listen 80;' }
       it { is_expected.to contain 'listen [::]:80;' }
       it { is_expected.to contain "server_name #{site} www.#{site};$" }
       it { is_expected.to contain "root /srv/web/#{site}/root;$" }
@@ -29,6 +30,7 @@ describe 'np-web::static_sites' do
 
   # Expect SSL to be set up for example.org since it has a cert data bag item
   describe file '/etc/nginx/sites-enabled/example.org' do
+    it { is_expected.to contain 'listen 443 ssl;' }
     it { is_expected.to contain 'listen [::]:443 ssl;' }
     it { is_expected.to contain 'ssl_certificate     /etc/nginx/ssl/example.org.crt;' }
     it { is_expected.to contain 'ssl_certificate_key /etc/nginx/ssl/example.org.key;' }

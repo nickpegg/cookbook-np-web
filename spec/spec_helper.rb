@@ -20,6 +20,11 @@ module SpecHelper
                         'username' => 'home',
                         'password' => 'sekrit'
                       })
+
+    stub_enc_data_bag('certificates',
+                      'nginx-default',
+                      'cert' => 'some_cert',
+                      'key' => 'some_key')
   end
 
   def memoized_runner(recipe)

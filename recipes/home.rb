@@ -9,6 +9,7 @@
 # TODO: break this out into its own cookbook maybe?
 
 include_recipe 'apt'
+include_recipe 'np-web'
 
 package 'git'
 package 'build-essential'
