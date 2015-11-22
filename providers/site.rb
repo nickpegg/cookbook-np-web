@@ -40,10 +40,11 @@ action :create do
     end
 
     file key_path do
-      owner   node[:np_web][:user]
-      group   node[:np_web][:group]
-      mode    '0640'
-      content cert_bag['key']
+      owner     node[:np_web][:user]
+      group     node[:np_web][:group]
+      mode      '0640'
+      content   cert_bag['key']
+      sensitive true
     end
   else
     cert_path = nil
