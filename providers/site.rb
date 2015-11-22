@@ -23,7 +23,7 @@ action :create do
   end
 
   nginx_vhost new_resource.name do
-    hostname new_resource.name
+    hostname "#{new_resource.name} www.#{new_resource.name}"
     port 80
     upstream false
     root_path ::File.join(site_dir, 'root')

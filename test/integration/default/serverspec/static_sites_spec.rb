@@ -20,7 +20,7 @@ describe 'np-web::static_sites' do
       it { is_expected.to exist }
       it { is_expected.to be_file }
       it { is_expected.to contain 'listen [::]:80;' }
-      it { is_expected.to contain "server_name #{site};$" }
+      it { is_expected.to contain "server_name #{site} www.#{site};$" }
       it { is_expected.to contain "root /srv/web/#{site}/root;$" }
       it { is_expected.to contain "access_log /srv/web/#{site}/logs/#{site}-access.log combined;$" }
       it { is_expected.to contain "error_log  /srv/web/#{site}/logs/#{site}-error.log;$" }

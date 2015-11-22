@@ -16,12 +16,10 @@ suites:
   - name: default
     run_list:
       - recipe[np-web::default]
+      - recipe[np-web::home]
       - recipe[np-web::static_sites]
     attributes:
       np_web:
         static_sites:
           - example.com
           - example.org
-  - name: home
-    run_list:
-      -recipe[np-web::home]
