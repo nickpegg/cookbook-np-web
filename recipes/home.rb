@@ -8,6 +8,8 @@
 
 # TODO: break this out into its own cookbook maybe?
 
+include_recipe 'apt'
+
 package 'git'
 package 'build-essential'
 package 'python-dev'
