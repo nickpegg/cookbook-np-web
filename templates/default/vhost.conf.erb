@@ -11,7 +11,7 @@ upstream <%= @name %> {
 
 server {
   server_name <%= @hostname %>;
-  listen <%= @port %>;
+  listen [::]:<%= @port %>;
 
   root <%= @root_path %>;
 

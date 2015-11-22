@@ -4,7 +4,7 @@ maintainer_email 'nick@nickpegg.com'
 license 'all_rights'
 description 'Sets up websites that I host'
 long_description 'Sets up websites that I host'
-version '0.2.0'
+version '0.2.1'
 
 depends 'application_python', '~> 4.0.0'
 depends 'nginx', '~> 2.7.6'
