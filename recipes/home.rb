@@ -90,4 +90,4 @@ poise_service 'home-worker' do
   user 'home'
 end
 
-# TODO: Set up nginx
+# TODO: Set up nginx vhost

@@ -19,7 +19,7 @@ action :create do
   directory ::File.join(site_dir, 'logs') do
     owner node[:np_web][:user]
     group node[:np_web][:group]
-    mode '0750'
+    mode '0755'
   end
 
   cert_bag = begin
@@ -51,6 +51,7 @@ action :create do
     key_path = nil
   end
 
+  # TODO: just make this into a template. nginx_vhost makes too many assumptions
   nginx_vhost new_resource.name do
     hostname "#{new_resource.name} www.#{new_resource.name}"
     port 80
