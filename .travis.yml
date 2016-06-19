@@ -1,0 +1,28 @@
+language: ruby
+sudo: false
+rvm:
+  - 2.3.1
+cache:
+  bundler: true
+  directories:
+    - .chefdk
+
+addons:
+  apt:
+    sources:
+      - chef-current-trusty
+    packages:
+      - chefdk
+
+services:
+  - docker
+
+before_script:
+  - chef gem install fauxhai rubocop rspec kitchen-docker
+
+script:
+  - chef exec rubocop
+  - chef exec rspec --color
+  - chef exec kitchen create -c8
+  - chef exec kitchen converge -c8
+  - chef exec kitchen verify

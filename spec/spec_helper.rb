@@ -12,17 +12,7 @@ module SpecHelper
   def common_stubs
     stub_command('which nginx').and_return('/usr/bin/nginx')
 
-    stub_enc_data_bag('home',
-                      'secrets',
-                      'id' => 'nick',
-                      'secret_key' => 'lolsecret',
-                      'db' => {
-                        'username' => 'home',
-                        'password' => 'sekrit'
-                      })
-
-    stub_enc_data_bag('certificates',
-                      'nginx-default',
+    stub_enc_data_bag('certificates', 'nginx-default',
                       'cert' => 'some_cert',
                       'key' => 'some_key')
   end

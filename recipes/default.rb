@@ -4,6 +4,7 @@
 #
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 
+include_recipe 'apt'
 include_recipe 'nginx'
 
 directory node[:np_web][:base_dir] do

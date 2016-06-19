@@ -1,16 +1,27 @@
 ---
 driver:
-  name: vagrant
-  customize:
-    memory: 1024
+  name: docker
+  use_sudo: false
+  provision_command: apt-get install -y curl wget net-tools
 
 provisioner:
   name: chef_zero
   encrypted_data_bag_secret_key_path: 'test/integration/encrypted_data_bag_secret'
 
+# Uncomment the following verifier to leverage Inspec instead of Busser (the
+# default verifier)
+# verifier:
+#   name: inspec
+
 platforms:
+  - name: debian-8
   - name: ubuntu-14.04
-  - name: debian-8.2
+
+suites:
+  - name: default
+    run_list:
+      - recipe[np-deluge::default]
+    attributes:
 
 suites:
   - name: default
