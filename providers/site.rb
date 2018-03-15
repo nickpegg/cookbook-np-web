@@ -26,7 +26,7 @@ action :create do
 
   cert_bag = begin
               Chef::EncryptedDataBagItem.load('certificates', new_resource.name)
-            rescue
+            rescue StandardError
               nil
             end
 
