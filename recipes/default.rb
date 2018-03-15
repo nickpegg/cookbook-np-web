@@ -51,6 +51,13 @@ file ::File.join(node['nginx']['dir'], 'ssl/default.key') do
   sensitive true
 end
 
-# Override the nginx default site template source cookbook
-t = resources(template: ::File.join(node['nginx']['dir'], 'sites-available/default'))
-t.cookbook 'np-web'
+template ::File.join(node['nginx']['dir'], 'sites-available/default-site') do
+  source  'default-site.erb'
+  owner   node[:np_web][:user]
+  group   node[:np_web][:group]
+  mode    '0640'
+end
+
+link ::File.join(node['nginx']['dir'], 'sites-enabled/default-site') do
+  to ::File.join(node['nginx']['dir'], 'sites-available/default-site')
+end

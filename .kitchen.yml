@@ -1,8 +1,14 @@
 ---
 driver:
-  name: docker
-  use_sudo: false
-  provision_command: apt-get install -y curl wget net-tools
+  #   name: docker
+  #   use_sudo: false
+  #   provision_command:
+  #     - apt-get update
+  #     - apt-get install -y curl wget net-tools
+  name: vagrant
+  customize:
+    memory: 1024
+    cpus: 4
 
 provisioner:
   name: chef_zero
@@ -15,7 +21,9 @@ provisioner:
 
 platforms:
   - name: debian-8
+  - name: debian-9
   - name: ubuntu-14.04
+  - name: ubuntu-16.04
 
 suites:
   - name: default

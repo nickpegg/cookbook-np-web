@@ -11,7 +11,7 @@ describe 'np-web::static_sites' do
     common_stubs
 
     @chef_run = memoized_runner(described_recipe)
-    @chef_run.node.set[:np_web][:static_sites] = ['example.com']
+    @chef_run.node.override[:np_web][:static_sites] = ['example.com']
     @chef_run.converge(described_recipe)
   end
 

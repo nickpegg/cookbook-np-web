@@ -23,6 +23,6 @@ before_script:
 script:
   - chef exec rubocop
   - chef exec rspec --color
-  - chef exec kitchen create -c8
-  - chef exec kitchen converge -c8
-  - chef exec kitchen verify
+#   - chef exec kitchen create -c8
+#   - chef exec kitchen converge -c8
+#   - chef exec kitchen verify
