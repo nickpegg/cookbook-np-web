@@ -5,7 +5,8 @@
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 
 package 'gpg'
-include_recipe 'nginx'
+
+nginx_dir = '/etc/nginx'
 
 directory node[:np_web][:base_dir] do
   user  'root'
@@ -13,7 +14,11 @@ directory node[:np_web][:base_dir] do
   mode  '0775'
 end
 
-directory ::File.join(node['nginx']['dir'], 'ssl') do
+directory nginx_dir do
+  recursive true
+end
+
+directory ::File.join(nginx_dir, 'ssl') do
   owner node[:np_web][:user]
   group node[:np_web][:group]
   mode  '0750'
@@ -37,14 +42,14 @@ end
 # Drop SSL cert and key for default website
 cert_bag = Chef::EncryptedDataBagItem.load('certificates', 'nginx-default')
 
-file ::File.join(node['nginx']['dir'], 'ssl/default.crt') do
+file ::File.join(nginx_dir, 'ssl/default.crt') do
   owner   node[:np_web][:user]
   group   node[:np_web][:group]
   mode    '0644'
   content cert_bag['cert']
 end
 
-file ::File.join(node['nginx']['dir'], 'ssl/default.key') do
+file ::File.join(nginx_dir, 'ssl/default.key') do
   owner     node[:np_web][:user]
   group     node[:np_web][:group]
   mode      '0640'
@@ -52,13 +57,18 @@ file ::File.join(node['nginx']['dir'], 'ssl/default.key') do
   sensitive true
 end
 
-template ::File.join(node['nginx']['dir'], 'sites-available/default-site') do
-  source  'default-site.erb'
-  owner   node[:np_web][:user]
-  group   node[:np_web][:group]
-  mode    '0640'
+nginx_install 'repo' do
+  default_site_cookbook 'np-web'
+  default_site_template 'default-site.erb'
 end
 
-link ::File.join(node['nginx']['dir'], 'sites-enabled/default-site') do
-  to ::File.join(node['nginx']['dir'], 'sites-available/default-site')
-end
+# template ::File.join(nginx_dir, 'sites-available/default-site') do
+#   source  'default-site.erb'
+#   owner   node[:np_web][:user]
+#   group   node[:np_web][:group]
+#   mode    '0640'
+# end
+#
+# link ::File.join(nginx_dir, 'sites-enabled/default-site') do
+#   to ::File.join(nginx_dir, 'sites-available/default-site')
+# end

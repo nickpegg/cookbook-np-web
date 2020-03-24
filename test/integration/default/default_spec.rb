@@ -10,7 +10,7 @@ describe file '/srv/web/default/index.html' do
   it { is_expected.to be_readable.by_user 'www-data' }
 end
 
-describe file '/etc/nginx/sites-enabled/default-site' do
+describe file '/etc/nginx/sites-enabled/000-default' do
   its(:content) { is_expected.to match(/listen\s+80 default_server;/) }
   its(:content) { is_expected.to match(/listen\s+\[::\]:80 default_server;/) }
   its(:content) { is_expected.to match(/listen\s+443 ssl default_server;/) }

@@ -1,12 +1,12 @@
 server {
-  listen      <%= node['nginx']['port'] -%> default_server;
-  listen      [::]:<%= node['nginx']['port'] -%> default_server;
+  listen      80 default_server;
+  listen      [::]:80 default_server;
   server_name <%= node['hostname'] %>;
 
   listen      443 ssl default_server;
   listen      [::]:443 ssl default_server;
-  ssl_certificate     <%= @node['nginx']['dir'] -%>/ssl/default.crt;
-  ssl_certificate_key <%= @node['nginx']['dir'] -%>/ssl/default.key;
+  ssl_certificate     /etc/nginx/ssl/default.crt;
+  ssl_certificate_key /etc/nginx/ssl/default.key;
   ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
   ssl_prefer_server_ciphers on;
@@ -15,10 +15,10 @@ server {
   ssl_stapling on;
   ssl_stapling_verify on;
 
-  access_log  <%= node['nginx']['log_dir'] %>/localhost.access.log;
+  access_log  /var/log/nginx/localhost.access.log;
 
   location / {
-    root   <%= node['nginx']['default_root'] %>;
+    root   <%= node[:np_web][:base_dir] -%>/default;
     index  index.html index.htm;
   }
 }

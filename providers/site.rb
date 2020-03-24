@@ -5,6 +5,10 @@ end
 action :create do
   nginx_dir = '/etc/nginx'
 
+  service 'nginx' do
+    action :nothing
+  end
+
   directory site_dir do
     owner node[:np_web][:user]
     group node[:np_web][:group]
