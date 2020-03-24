@@ -1,0 +1,27 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+
+provisioner:
+  name: chef_zero
+  product_name: cinc
+  encrypted_data_bag_secret_key_path: 'test/integration/encrypted_data_bag_secret'
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: debian-10
+  - name: ubuntu-18.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[np-web::default]
+      - recipe[np-web::static_sites]
+    attributes:
+      np_web:
+        static_sites:
+          - example.com
+          - example.org
