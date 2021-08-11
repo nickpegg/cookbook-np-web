@@ -5,16 +5,13 @@ require 'chefspec/berkshelf'
 module SpecHelper
   @@runner = {} # rubocop:disable Style/ClassVars
 
-  def stub_enc_data_bag(bag, item, contents = {})
-    allow(Chef::EncryptedDataBagItem).to receive(:load).with(bag, item).and_return(contents)
-  end
-
   def common_stubs
     stub_command('which nginx').and_return('/usr/bin/nginx')
 
-    stub_enc_data_bag('certificates', 'nginx-default',
-                      'cert' => 'some_cert',
-                      'key' => 'some_key')
+    stub_data_bag_item('certificates', 'nginx-default').and_return(
+      'cert' => 'some_cert',
+      'key' => 'some_key',
+    )
   end
 
   def memoized_runner(recipe)

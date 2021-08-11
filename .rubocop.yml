@@ -1,5 +1,8 @@
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/BlockLength:
   Max: 100
+
+Style/TrailingCommaInArguments:
+  Enabled: false

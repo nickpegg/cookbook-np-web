@@ -1,9 +1,8 @@
 name 'np-web'
 maintainer 'Nick Pegg'
 maintainer_email 'nick@nickpegg.com'
-license 'all_rights'
+license 'mit'
 description 'Sets up websites that I host'
-long_description 'Sets up websites that I host'
 version '0.2.6'
 
 depends 'nginx', '~> 10.0'

@@ -1,6 +1,4 @@
-def whyrun_supported?
-  true
-end
+
 
 action :create do
   nginx_dir = '/etc/nginx'
@@ -10,28 +8,28 @@ action :create do
   end
 
   directory site_dir do
-    owner node[:np_web][:user]
-    group node[:np_web][:group]
+    owner node['np_web']['user']
+    group node['np_web']['group']
     mode '0755'
     recursive true
   end
 
   directory ::File.join(site_dir, 'root') do
-    owner node[:np_web][:user]
-    group node[:np_web][:group]
+    owner node['np_web']['user']
+    group node['np_web']['group']
     mode '0755'
   end
 
   directory ::File.join(site_dir, 'logs') do
-    owner node[:np_web][:user]
-    group node[:np_web][:group]
+    owner node['np_web']['user']
+    group node['np_web']['group']
     mode '0755'
   end
 
   cert_bag = begin
-              Chef::EncryptedDataBagItem.load('certificates', new_resource.name)
-            rescue StandardError
-              nil
+              data_bag_item('certificates', new_resource.name)
+             rescue StandardError
+               nil
             end
 
   if cert_bag
@@ -39,15 +37,15 @@ action :create do
     key_path = ::File.join(nginx_dir, "ssl/#{new_resource.name}.key")
 
     file cert_path do
-      owner   node[:np_web][:user]
-      group   node[:np_web][:group]
+      owner   node['np_web']['user']
+      group   node['np_web']['group']
       mode    '0644'
       content cert_bag['cert']
     end
 
     file key_path do
-      owner     node[:np_web][:user]
-      group     node[:np_web][:group]
+      owner     node['np_web']['user']
+      group     node['np_web']['group']
       mode      '0640'
       content   cert_bag['key']
       sensitive true
@@ -102,5 +100,5 @@ action :delete do
 end
 
 def site_dir
-  @site_dir ||= new_resource.path || ::File.join(node[:np_web][:base_dir], new_resource.name)
+  @site_dir ||= new_resource.path || ::File.join(node['np_web']['base_dir'], new_resource.name)
 end
