@@ -11,13 +11,10 @@ describe 'np-web::default' do
 
   before do
     common_stubs
-    @chef_run = memoized_runner(described_recipe)
   end
 
   let(:nginx_dir)     { '/etc/nginx' }
   let(:default_root)  { '/srv/web/default' }
-
-  subject { @chef_run }
 
   it { is_expected.to install_nginx_install('repo') }
 
