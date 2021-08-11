@@ -1,7 +1,7 @@
 name 'np-web'
 maintainer 'Nick Pegg'
 maintainer_email 'nick@nickpegg.com'
-license 'mit'
+license 'MIT'
 description 'Sets up websites that I host'
 version '0.2.6'
 
