@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'chefspec'
 gem 'inspec'
 gem 'kitchen-docker'
 gem 'kitchen-inspec'
