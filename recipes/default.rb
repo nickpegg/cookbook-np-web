@@ -1,14 +1,14 @@
 #
-# Cookbook Name:: np-web
+# Copyright:: 2015-2021 Nick Pegg
+# Cookbook:: np-web
 # Recipe:: default
 #
-# Copyright (c) 2015 The Authors, All Rights Reserved.
 
 package 'gpg'
 
 nginx_dir = '/etc/nginx'
 
-directory node[:np_web][:base_dir] do
+directory node['np_web']['base_dir'] do
   user  'root'
   group 'www-data'
   mode  '0775'
@@ -19,39 +19,39 @@ directory nginx_dir do
 end
 
 directory ::File.join(nginx_dir, 'ssl') do
-  owner node[:np_web][:user]
-  group node[:np_web][:group]
+  owner node['np_web']['user']
+  group node['np_web']['group']
   mode  '0750'
 end
 
 # Drop the default site index.html
-default_root = ::File.join(node[:np_web][:base_dir], 'default')
+default_root = ::File.join(node['np_web']['base_dir'], 'default')
 directory default_root do
-  owner node[:np_web][:user]
-  group node[:np_web][:group]
+  owner node['np_web']['user']
+  group node['np_web']['group']
   mode  '0755'
 end
 
 cookbook_file ::File.join(default_root, 'index.html') do
   source  'default-index.html'
-  owner   node[:np_web][:user]
-  group   node[:np_web][:group]
+  owner   node['np_web']['user']
+  group   node['np_web']['group']
   mode    '0755'
 end
 
 # Drop SSL cert and key for default website
-cert_bag = Chef::EncryptedDataBagItem.load('certificates', 'nginx-default')
+cert_bag = data_bag_item('certificates', 'nginx-default')
 
 file ::File.join(nginx_dir, 'ssl/default.crt') do
-  owner   node[:np_web][:user]
-  group   node[:np_web][:group]
+  owner   node['np_web']['user']
+  group   node['np_web']['group']
   mode    '0644'
   content cert_bag['cert']
 end
 
 file ::File.join(nginx_dir, 'ssl/default.key') do
-  owner     node[:np_web][:user]
-  group     node[:np_web][:group]
+  owner     node['np_web']['user']
+  group     node['np_web']['group']
   mode      '0640'
   content   cert_bag['key']
   sensitive true

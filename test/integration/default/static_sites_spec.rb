@@ -3,8 +3,8 @@ describe file '/srv/web' do
   it { is_expected.to be_directory }
 end
 
-%w[example.com example.org].each do |site|
-  %w[root logs].each do |dir|
+%w(example.com example.org).each do |site|
+  %w(root logs).each do |dir|
     describe file ::File.join('/srv/web', site, dir) do
       it { is_expected.to exist }
       it { is_expected.to be_directory }

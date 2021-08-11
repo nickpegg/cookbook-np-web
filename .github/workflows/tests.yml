@@ -1,0 +1,41 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  kitchen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Create
+        run: bundle exec kitchen create --color -c4
+      - name: Converge
+        run: bundle exec kitchen converge --color -c4
+      - name: Verify
+        run: bundle exec kitchen verify --color
+  style_and_unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Cookstyle
+        run: bundle exec cookstyle
+      - name: RSpec
+        run: bundle exec rspec

@@ -1,23 +1,22 @@
 #
-# Cookbook Name:: np-web
+# Cookbook:: np-web
 # Spec:: default
 #
-# Copyright (c) 2015 The Authors, All Rights Reserved.
+# Copyright:: (c) 2015 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
 describe 'np-web::default' do
+  platform 'ubuntu'
+
   before do
     common_stubs
-    @chef_run = memoized_runner(described_recipe)
   end
 
   let(:nginx_dir)     { '/etc/nginx' }
   let(:default_root)  { '/srv/web/default' }
 
-  subject { @chef_run }
-
-  it { is_expected.to include_recipe 'nginx' }
+  it { is_expected.to install_nginx_install('repo') }
 
   it 'should create the base directory' do
     is_expected.to create_directory('/srv/web').with(
