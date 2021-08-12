@@ -1,6 +1,6 @@
 # np-web
 
-[![Build Status](https://travis-ci.org/nickpegg/cookbook-np-web.svg?branch=master)](https://travis-ci.org/nickpegg/cookbook-np-web)
+[![Tests](https://github.com/nickpegg/cookbook-np-web/actions/workflows/tests.yml/badge.svg)](https://github.com/nickpegg/cookbook-np-web/actions/workflows/tests.yml)
 
 Sets up nginx and provides a `np_web_site` resource to set up all the base
 directories (web root, logs, etc.).
