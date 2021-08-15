@@ -10,7 +10,7 @@ describe file '/srv/web/default/index.html' do
   it { is_expected.to be_readable.by_user 'www-data' }
 end
 
-describe file '/etc/nginx/sites-enabled/000-default' do
+describe file '/etc/nginx/sites-available/default' do
   its(:content) { is_expected.to match(/listen\s+80 default_server;/) }
   its(:content) { is_expected.to match(/listen\s+\[::\]:80 default_server;/) }
   its(:content) { is_expected.to match(/listen\s+443 ssl default_server;/) }
@@ -21,6 +21,16 @@ describe file '/etc/nginx/sites-enabled/000-default' do
   its(:content) { is_expected.to match(/ssl_protocols\s+TLSv1 TLSv1.1 TLSv1.2;/) }
   its(:content) { is_expected.to match(/ssl_prefer_server_ciphers\s+on;$/) }
   its(:content) { is_expected.to match %r{root\s+/srv/web/default;$} }
+end
+
+describe.one do
+  describe file '/etc/nginx/sites-enabled/000-default' do
+    its('link_path') { is_expected.to eq '/etc/nginx/sites-available/default' }
+  end
+
+  describe file '/etc/nginx/sites-enabled/default' do
+    its('link_path') { is_expected.to eq '/etc/nginx/sites-available/default' }
+  end
 end
 
 describe file '/etc/nginx/ssl/default.crt' do
