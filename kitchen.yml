@@ -13,6 +13,9 @@ verifier:
 
 platforms:
   - name: debian-10
+  - name: debian-11
+    driver:
+      image: debian:bullseye
   - name: ubuntu-20.04
 
 suites:
