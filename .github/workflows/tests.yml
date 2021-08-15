@@ -13,6 +13,10 @@ on:
 jobs:
   kitchen:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        suite: [default]
+        os: [debian-10, ubuntu-2004]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -21,11 +25,11 @@ jobs:
         with:
           bundler-cache: true
       - name: Create
-        run: bundle exec kitchen create --color -c4
+        run: bundle exec kitchen create --color ${{ matrix.suite }}-${{ matrix.os }}
       - name: Converge
-        run: bundle exec kitchen converge --color -c4
+        run: bundle exec kitchen converge --color ${{ matrix.suite }}-${{ matrix.os }}
       - name: Verify
-        run: bundle exec kitchen verify --color
+        run: bundle exec kitchen verify --color ${{ matrix.suite }}-${{ matrix.os }}
   style_and_unit:
     runs-on: ubuntu-latest
     steps:
