@@ -12,7 +12,6 @@ verifier:
   name: inspec
 
 platforms:
-  - name: debian-10
   - name: debian-11
     driver:
       image: debian:bullseye

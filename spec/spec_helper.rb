@@ -10,7 +10,7 @@ module SpecHelper
 
     stub_data_bag_item('certificates', 'nginx-default').and_return(
       'cert' => 'some_cert',
-      'key' => 'some_key',
+      'key' => 'some_key'
     )
   end
 
