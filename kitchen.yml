@@ -2,6 +2,9 @@
 driver:
   name: docker
   use_sudo: false
+  # Need to use ed25519 keys for newer OpenSSH
+  private_key: test/ssh_key
+  public_key: test/ssh_key.pub
 
 provisioner:
   name: chef_zero
@@ -16,6 +19,7 @@ platforms:
     driver:
       image: debian:bullseye
   - name: ubuntu-20.04
+  - name: ubuntu-22.04
 
 suites:
   - name: default
